@@ -1,0 +1,23 @@
+<div class="admin-container">
+  <h1>Administrar Painel</h1>
+
+  <div class="admin-section">
+    <h2>Adicionar Administrador</h2>
+    <input type="email" placeholder="Digite o email do novo administrador" [(ngModel)]="newAdminEmail">
+    <button (click)="addAdmin()">Adicionar Admin</button>
+    <div class="message-container">
+      <p *ngIf="adminError" class="error-message">{{ adminError }}</p>
+      <p *ngIf="adminSuccess" class="success-message">Administrador adicionado com sucesso!</p>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h2>Atualizar Dataset</h2>
+    <input type="file" accept=".csv" (change)="onFileSelected($event)">
+    <button (click)="updateDataset()" [disabled]="!selectedFile">Atualizar Dataset</button>
+    <div class="message-container">
+      <p *ngIf="fileError" class="error-message">{{ fileError }}</p>
+      <p *ngIf="uploadError" class="error-message">{{ uploadError }}</p>
+    </div>
+  </div>
+</div>

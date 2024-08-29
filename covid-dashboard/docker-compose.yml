@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: covid_dashboard
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - covid-dashboard_covid_network
+
+  app:
+    image: covid-dashboard:latest
+    container_name: covid-dashboard
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: covid_dashboard
+      DATABASE_USERNAME: user
+      DATABASE_PASSWORD: root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - covid-dashboard_covid_network
+
+volumes:
+  postgres_data:
+
+networks:
+  covid-dashboard_covid_network:

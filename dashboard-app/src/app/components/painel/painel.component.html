@@ -1,0 +1,39 @@
+<div class="painel-container">
+  <h1>Painel de Dados COVID-19</h1>
+  
+  <section class="introducao">
+    <h2>Introdução ao Dataset</h2>
+    <p>
+      Bem-vindo ao nosso painel de dados sobre a COVID-19. Este painel utiliza um conjunto de dados abrangente que oferece informações valiosas sobre a pandemia global.
+    </p>
+    <p>
+      Os dados são coletados do DataSet do Kaggle, sendo posteriormente armazenado e enviado pela API. O conjunto inclui:
+    </p>
+    <ul>
+      <li>Dados de vacinação em nível de país.</li>
+      <li>Informações sobre fontes de vacinação.</li>
+    </ul>
+    <p>
+      Este DataSet permite uma visão detalhada e atualizada do progresso da vacinação e outros aspectos relevantes da pandemia em escala global.
+    </p>
+  </section>
+
+  <button 
+    class="btn-gerar-graficos" 
+    (click)="criarGraficos()" 
+    [disabled]="graficosGerados || carregando">
+    {{ graficosGerados ? 'Gráficos Gerados' : (carregando ? 'Carregando...' : 'Gerar Gráficos') }}
+  </button>
+
+  <div *ngIf="carregando" class="mensagem-carregando">Carregando gráficos...</div>
+
+  <div *ngIf="mostrarMensagemErro" class="mensagem-erro">
+    Não há dados disponíveis no momento. Por favor, solicite ao administrador para inserir os dados.
+  </div>
+
+  <div class="graficos-container" *ngIf="graficosGerados">
+    <div id="grafico1" class="grafico"></div>
+    <div id="grafico2" class="grafico"></div>
+    <div id="grafico3" class="grafico"></div>
+  </div>
+</div>

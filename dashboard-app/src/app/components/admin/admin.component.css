@@ -1,0 +1,147 @@
+.admin-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #007bff;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.admin-section {
+  margin-bottom: 30px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+input[type="email"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.message-container {
+  margin-top: 15px;
+  min-height: 20px; 
+}
+
+
+@media screen and (max-width: 768px) {
+  .admin-container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  input[type="email"],
+  input[type="file"],
+  button {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .admin-container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .admin-section {
+    padding: 15px;
+  }
+
+  input[type="email"],
+  input[type="file"],
+  button {
+    font-size: 0.85rem;
+    padding: 8px 15px;
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  input[type="email"],
+  input[type="file"],
+  button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .error-message {
+    font-size: 0.75rem;
+  }
+}
