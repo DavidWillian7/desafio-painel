@@ -46,6 +46,7 @@ public class SecurityConfig {
         http.csrf().disable()
             .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/covid-data/upload").hasRole("ADMIN")
                 .anyRequest().permitAll()
             .and()
