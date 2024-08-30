@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -75,30 +74,18 @@ public class AuthController {
     @Operation(summary = "Adicionar admin", description = "Adiciona a permissão de admin para o email do usuário fornecido. Requer permissão de ADMIN.")
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/atualizar-role")
-    public ResponseEntity<?> atualizarRoleParaAdmin(@RequestBody EmailDTO emailDTO, HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            String role = jwtUtil.extractRole(token);
-
-            if (role == null || !role.equals("ADMIN")) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso negado. Permissão de ADMIN necessária.");
+    public ResponseEntity<?> atualizarRoleParaAdmin(@RequestBody EmailDTO emailDTO) {
+        try {
+            if (emailDTO.getEmail() == null || emailDTO.getEmail().isEmpty()) {
+                return ResponseEntity.badRequest().body("Email não fornecido");
             }
 
-            try {
-                if (emailDTO.getEmail() == null || emailDTO.getEmail().isEmpty()) {
-                    return ResponseEntity.badRequest().body("Email não fornecido");
-                }
-
-                usuarioService.atualizarRoleParaAdmin(emailDTO.getEmail());
-                return ResponseEntity.ok("Role do usuário atualizada para ADMIN");
-            } catch (RuntimeException e) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar role do usuário");
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token não fornecido");
+            usuarioService.atualizarRoleParaAdmin(emailDTO.getEmail());
+            return ResponseEntity.ok("Role do usuário atualizada para ADMIN");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar role do usuário");
         }
     }
 }

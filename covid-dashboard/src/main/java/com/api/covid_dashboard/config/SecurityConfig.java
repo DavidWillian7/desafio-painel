@@ -45,10 +45,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/covid-data/upload").hasRole("ADMIN")
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST, "/api/auth/atualizar-role").hasRole("ADMIN")
+                .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()

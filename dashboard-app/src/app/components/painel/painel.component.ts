@@ -33,7 +33,7 @@ export class PainelComponent {
           this.dadosCarregados = true;
           this.graficosGerados = true;
           this.carregando = false;
-          setTimeout(() => this.gerarGraficos(dados), 17000);
+          setTimeout(() => this.gerarGraficos(dados), 27000);
         } else {
           this.carregando = false;
           this.mostrarMensagemErro = true;
