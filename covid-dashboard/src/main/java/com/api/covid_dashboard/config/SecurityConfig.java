@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,10 +44,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors(Customizer.withDefaults()).csrf().disable()
             .authorizeRequests()
                 .antMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/covid-data").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/covid-data/upload").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/auth/atualizar-role").hasRole("ADMIN")
                 .anyRequest().authenticated()

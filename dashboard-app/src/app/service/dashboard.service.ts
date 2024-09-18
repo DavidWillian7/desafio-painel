@@ -33,6 +33,14 @@ export class DashboardService {
   }
 
   atualizarRoleAdmin(email: string): Observable<string> {
-    return this.http.post(`${this.apiUrl}/auth/atualizar-role`, { email }, { responseType: 'text' });
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post(`${this.apiUrl}/auth/atualizar-role`, { email }, {
+      headers: headers,
+      responseType: 'text'
+    });
   }
 }
